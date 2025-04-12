@@ -11,10 +11,15 @@ struct AssetList: View {
                 AssetView(asset: asset)
             }
         }
-        Button("Fetch assets") {
-            Task {
-                await viewModel.fetchAssets()
-            }
+        .listStyle(.plain)
+        .onAppear{
+            
+        }
+        .onDisappear{
+            
+        }
+        .task {
+            await viewModel.fetchAssets()
         }
     }
 }
