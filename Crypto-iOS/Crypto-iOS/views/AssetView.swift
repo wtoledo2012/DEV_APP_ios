@@ -20,7 +20,7 @@ struct AssetViewState {
     }
 
     var formattedPercentage: String {
-        String(format: "%.2f%%", Double(asset.changePercent24Hr) ?? 0)
+        String(format: "%.2f", Double(asset.changePercent24Hr) ?? 0)
     }
 
     var iconUrl: URL? {
@@ -30,7 +30,6 @@ struct AssetViewState {
 
 struct AssetView: View {
     
-    let asset: Asset
     let assetViewState: AssetViewState
     var body: some View {
         
@@ -51,12 +50,13 @@ struct AssetView: View {
                     Text(assetViewState.asset.name)
                         .font(.subheadline)
                         .foregroundStyle(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
                 Spacer()
                 
                 Text(assetViewState.formattedPercentage)
-                    .foregroundStyle(assetViewState.percentage >= 0 ? .green : .red)
+                    .foregroundStyle(assetViewState.percentageColor)
                     .frame(maxWidth: .infinity, alignment: .trailing)
 
                 Text(assetViewState.formattedPrice)
@@ -71,13 +71,15 @@ struct AssetView: View {
 }
 
 #Preview {
-    AssetViewState:(
-        asset: .init(
-            id: "bitcoin",
-            name: "Bitcoin",
-            symbol: "BTC",
-            priceUsd: "85235.785487858585",
-            changePercent24Hr: "-7.2558889"
+    AssetView(
+        assetViewState: .init(
+            .init(
+                id: "bitcoin",
+                name: "Bitcoin",
+                symbol: "BTC",
+                priceUsd: "82447.1019674762194254",
+                changePercent24Hr: "7.7201185550538720"
+            )
         )
     )
 }
