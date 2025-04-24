@@ -15,7 +15,7 @@ struct Crypto_iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AssetList()
+            AppTabView()
         }
     }
 }

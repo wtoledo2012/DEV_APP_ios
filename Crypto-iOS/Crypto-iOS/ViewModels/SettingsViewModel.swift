@@ -7,16 +7,35 @@ final class SettingsViewModel{
 
     var showError = false
     var errorMessage: String = ""
-
-    var isLogedIn = false
-
+    
+    var user: User?
+    
+    init() {
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        user = .init(
+            id: currentUser.uid,
+            email: currentUser.email ?? "n/a"
+        )
+    }
+    
     func login() async {
         do {
-            try await Auth.auth().signIn(
+            let result = try await Auth.auth().signIn(
                 withEmail: email,
                 password: password
             )
-            isLogedIn = true
+
+            user = .init(
+                id: result.user.uid,
+                email: result.user.email ?? "n/a"
+            )
+            
+            email = ""
+            password = ""
+            
         } catch {
             showError = true
             errorMessage = error.localizedDescription
@@ -26,6 +45,7 @@ final class SettingsViewModel{
     func logout() {
         do {
             try Auth.auth().signOut()
+            user = nil
         } catch {
             // TODO: handle error
         }
