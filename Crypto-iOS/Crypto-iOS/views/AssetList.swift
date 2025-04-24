@@ -10,7 +10,7 @@ struct AssetList: View {
             List {
                 ForEach(viewModel.assets) { asset in
                     NavigationLink{
-                        AssetDetailView(asset:asset)
+                        AssetDetailView(viewModel: .init(asset: <#T##Asset#>))
                     } label: {
                         AssetView(assetViewState: .init(asset))
                     }
@@ -18,12 +18,8 @@ struct AssetList: View {
                 }
             }
             .listStyle(.plain)
-            /*.onAppear{
-                
-            }
-            .onDisappear{
-                
-            }*/
+            /*.onAppear{}
+            .onDisappear{         }*/
             .listStyle(.plain)
             .task {
                 await viewModel.fetchAssets()
