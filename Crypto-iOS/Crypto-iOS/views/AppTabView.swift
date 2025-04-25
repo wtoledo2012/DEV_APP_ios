@@ -6,8 +6,8 @@ struct AppTabView: View {
             Tab("Home", systemImage: "house"){
                 AssetList()
             }
-            Tab("Favourites", systemImage: "star"){
-                Text("Favourites")
+            Tab("Favourites", systemImage: "star") {
+                FavouritesView()
             }
             Tab("Settings", systemImage: "gear") {
                 SettingsView()
